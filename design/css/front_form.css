@@ -1,0 +1,33 @@
+html, body{ 
+	height: 100%;
+	padding: 0;
+	margin:0; 
+	}
+
+.front-form { 
+	border: 1px solid #aaa;
+	padding: 2em;
+	border-radius:.25em;
+	width: 80%;
+	background:#eee;
+
+	max-width: 800px;
+	box-shadow: 2px 2px 4px #ccc;
+}
+ 
+.front-form  .submit{ 
+	margin-top: 2em ; 
+}
+
+.submit + p { 
+	font-size: 70%;
+}
+.submit + p a { 
+	display: inline-block;
+}
+
+.error{color:red !important;}
+
+span.error{
+	font-size: 60% !important; 
+}

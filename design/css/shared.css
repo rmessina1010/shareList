@@ -1,0 +1,62 @@
+body{
+	font-family: Helvetica, Arial, sans-serif  ; 
+}
+ /*button, a[href*='?logout'], a.button {
+	background: #efefef;
+	padding:.6em .7em .6em .7em;
+	border: 2px groove #bbb;
+	-webkit-border-radius: .25em;
+	-moz-border-radius: .25em;
+ 	border-radius: .25em;
+ 	text-transform: capitalize;
+	font-family: sans-serif;
+	text-decoration: none;
+	font-size: .7em;
+}*/
+.hide { position: fixed; left:-9999em;}
+
+ a[href*='?logout'] {
+	float: right;
+	margin-right: .3em;
+}
+
+.viewToggle{ 	
+		background: url("http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/chevron-icon.png") 50% 50% no-repeat;
+
+	height: 20px;
+	width:20px;
+	display: inline-block;
+	vertical-align: middle;
+ }
+.collapse .viewToggle{
+	background: url("http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/chevron-expand-icon.png") 50% 50% no-repeat;
+
+}
+ .collapse + ul.items{
+	max-height: 0;
+	overflow: hidden;
+}
+  form .list{ margin-bottom: 2px;}
+  	body {
+	 	padding-bottom: 3em;
+ 	}
+	form>.control{
+		position: fixed;
+ 		bottom:0;
+		left:0;
+		right:0;
+ 		background: #555;
+		padding:1px 1px .75em .75em;
+  	}
+  	form .control > *{
+ 	  	margin-right:.75em;
+ 	  	margin-top:.75em;
+		font-size:80%  ;
+  	}
+ 
+.items>li  { overflow: hidden;}
+.quant, .sleeve{ float: right;  }
+.quant input {border-color: transparent;}
+.image.sleeve:before {content : url('../images/Pictures-icon-1.png');}
+.text.sleeve:before {content : url('../images/text-icon.png');  }
+.text.sleeve .real>span{ color:#555; background: #fff;}

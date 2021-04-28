@@ -1,0 +1,86 @@
+		.section {
+			
+			border: 1px solid #555;
+			margin-bottom: 1em;
+		}
+		form { 
+			margin:0;
+			padding: 0;
+		}
+		form > h6 { 
+			padding: 1em;
+			background: #555;
+			text-shadow: 0 1px 0 #000;
+		}
+			 
+		nav+.section { margin-top:1em;}
+ 			 
+		.el-list-shell {
+			padding: .5em;
+			border: 1px solid #555;
+			border-radius: .25em;
+		}
+		
+		.fineprint { 
+			font-size: .65rem;
+			margin-top:.75em;
+		}
+		.el-list-shell > ul{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			list-style: none; 			
+			display: inline-block;
+
+		}
+		
+		.el-list-shell > ul>   li ,.add-shell{
+ 			padding: .3em;
+ 			display: inline-block;
+			border: 1px solid #8aadee;
+			border-radius: .3em;
+			margin: .4em   ;
+			font-family: sans-serif;
+			font-size: 75%;
+ 		}
+		.add-shell input {
+ 			margin-right: .6em ;
+ 			border: none;
+ 		}
+ 		
+ 		.remove-icon {
+	 		display:inline-block; 
+
+ 		}
+ 		.remove-icon:before, .add-icon:before{
+	 		display:inline-block;
+  	 		font-family: sans-serif;
+ 	 		background:silver;
+ 	 		margin: 2px;
+	 		text-align: center;
+	 		padding: .1em .6em ;
+	 		border-radius:50%;
+	 		margin-left:.4em;
+  		}
+  		.remove-icon:before{
+	  		content:'x';
+
+  		}
+  		.add-icon:before{
+	  		content:'+';
+
+  		}
+  		
+   		
+  		.add-mode .add-view, .edit-view {
+	  		display:block;  
+  		} 
+  		.add-view, .add-mode .edit-view{
+	  		display:none; margin: 0 !important;
+  		} 
+
+  .error{color:red !important;}
+
+span.error{
+	font-size: 60% !important; 
+}
