@@ -1,6 +1,14 @@
-<html>
+<?
+ 	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
+	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('includes/functions_forms.php');
+	
+	$lists = "SELECT * FROM `GLists` WHERE (`GLOwner` = :ownerid  OR (`GLEditors` LIKE :theemail) OR (`GLSubs` LIKE :theemail))";
+	$lists = new RMCDO(false, $lists, array( ':theemail'=>'%,'.$_SESSION["LISTlogged"]['email'].',%', ':ownerid'=>$_SESSION["LISTlogged"]['UserID']));
+
+  ?><html>
 	<head>
-		<title> </title>
+		<title>ShareList Dashborard: <? echo $_SESSION["LISTlogged"]['username']; ?></title>
 		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
 		<style type="text/css" media="screen">
 			.section {
@@ -83,30 +91,13 @@
 	<body>
 		
 		<div class="container">
- 				 
-	  		<nav class="navbar navbar-light bg-light navbar-expand row no-gutters">
-	  			<div class="col-sm row" >
-		  			<div class="col-sm-2">LOGO</div>   
-		  			<div class="col-sm">Hello: <span style="display:inline-block;">Your Name</span></div>
-	  			</div>
-			    <ul class="navbar-nav  ml-auto  row">
-			      <li class="nav-item ">
-			        <a class="nav-link" href="#">Edit Profile</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Log Out</a>
-			      </li>
-			    </ul>
-			</nav>
+		<? include ('includes/top_nav.php'); ?>
   			<form class="section">
 	 			<h6 class=""> View List:</h6>
 				<div class="row no-gutters">
 	 				<div class="col-sm-9 p-2 "> 
-		 				<select class="form-control">
-							<option>Option 1</option>
-							<option>Option 1</option>
-							<option>Option 1</option>
-							<option>Option 1</option>
+		 				<select class="form-control" name="listChoice" id="listChoice">
+			 			<?  echo build_opts('{{:GLName:}}', $lists->dump(), '{{:GLID:}}'); ?>
 						</select>
 	 				</div>
 	 				<div class="col-sm-3 p-2"> 
@@ -117,9 +108,11 @@
  			<form class="section">
 	 			<h6 class="">Preferences</h6>
 				<div class="row no-gutters">
-							<div class="col-sm p-2"><label class="form-control"><input  type="checkbox" name="all" id="all"   > View All</label></div>
-							<div class="col-sm p-2"><label class="form-control"><input  type="checkbox" name="accordion" id="accordion"   > Accordion</label></div>
-							<div class="col-sm-5 p-2"><label class="form-control"><input   type="checkbox" name="auto" id="auto" > Auto Update View</label></div>
+							<div class="col-sm p-2"><label class="form-control"><input  type="checkbox" name="all" id="all"   value="1"  <? echo  (isset($_SESSION["LISTlogged"]['prefs']['view']) && $_SESSION["LISTlogged"]['prefs']['view']) ? ' CHECKED ' : '' ; ?>	> View All</label></div>
+							<div class="col-sm p-2"><label class="form-control"><input  type="checkbox" name="accordion" id="accordion"   value="1" <? echo  (isset($_SESSION["LISTlogged"]['prefs']['acc']) && $_SESSION["LISTlogged"]['prefs']['acc']) ? ' CHECKED ' : '' ; ?>					 
+ > Accordion</label></div>
+							<div class="col-sm-5 p-2"><label class="form-control"><input   type="checkbox" name="auto" id="auto" value="1" <? echo  (isset($_SESSION["LISTlogged"]['prefs']['auto']) && $_SESSION["LISTlogged"]['prefs']['auto']) ? ' CHECKED ' : '' ; ?>					 
+> Auto Update View</label></div>
 	 				</div>
   		   </form>
  			<form class="section add-mode" id="listCTR">

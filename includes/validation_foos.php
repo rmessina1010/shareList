@@ -1,9 +1,10 @@
 <?
 
-
+    /* example:
 	function rm_check_kids($input){
 		return  (preg_match( '/^~5\d{6}$/', $input) === 1);
 	}
+	*/
 	function rm_check_req($input){
 		return  (trim($input) !== '');
 	}
@@ -31,7 +32,7 @@
 		return  (strlen($input) <= $l );
 	}
 
-	function rm_check_exists($data,$args){
+	function rm_check_inDB($data,$args){
  			$table =  $args['t'] ? $args['t']  : false;
 			$col   =  $args['c'] ? $args['c']  : false;
  			$q=new RMSO('`'.$table.'`','`'.$col.'`','`'.$col.'`= :u' );

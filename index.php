@@ -4,7 +4,7 @@
 	include_once  ('includes/rm_passwordFoos.php');
 	include_once  ('includes/login_foos.php');
 	$message='';
- 	if( isset($_POST['logsub'])){ $message=sharelist_login('email','Login Denied.','Password1','editProfile.php');}
+ 	if( isset($_POST['logsub'])){ $message=sharelist_login('email','Password1','Login Denied.','dash.php');}
  	
  	?><!DOCTYPE html>
 <html>

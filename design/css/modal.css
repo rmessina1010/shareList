@@ -1,0 +1,43 @@
+				.real  span { border: 1px solid}
+				.item{ background:pink; margin:20px  0 }
+			    .popmode  .real{
+				    	position:fixed;
+				    	top:0;
+				    	bottom: 0;
+				    	left: 0;
+				    	right: 0;
+				    	background:  rgba(0,0,0,.3);
+				    	
+			    }
+			    .popmode .real:before{
+				    content:'';
+				    height: 100%;
+				    width:1px;
+				    margin: 0 -1px 0 0;
+				    display:inline-block;
+				    vertical-align: middle;  
+  			    }
+			    .popmode .real img, .popmode .real span{ 
+				    	vertical-align: middle;    
+				    	display: inline-block; 
+				    	text-align: left;  	    
+				}
+  				.sleeve .real {
+						display:none;
+						text-align: center;
+ 				}	
+				.popmode.sleeve .real{
+						display:inline-block;
+ 				}
+				.popmode.sleeve .real > span{
+						width: 70%;
+						padding: 1em;
+						background: #fff;
+						
+ 				}
+				.popmode.sleeve .real > img{
+						max-width: 100%;
+  				}
+ 				.icon { 
+	 				vertical-align: middle;	 				
+ 				}

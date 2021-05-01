@@ -96,20 +96,7 @@
  	</head>
 	<body>
  		<div class="container">
-	  		<nav class="navbar navbar-light bg-light navbar-expand row no-gutters">
-	  			<div class="col-sm row" >
-		  			<div class="col-sm-2">LOGO</div>   
-		  			<div class="col-sm">Hello: <span><? echo $_SESSION["LISTlogged"]['username'] ?></span></div>
-	  			</div>
-			    <ul class="navbar-nav  ml-auto  row">
-			      <li class="nav-item ">
-			        <a class="nav-link" href="#">Dashboard</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="index.php?logout=y">Log Out</a>
-			      </li>
-			    </ul>
-			</nav>
+		<? include ('includes/top_nav.php'); ?>
    	    <form class="front-form form my-auto section" method="POST">
 		<h6 class="text-center">Edit Profile</h6>
 		<?echo $oops;?>
@@ -148,7 +135,7 @@
 		<div class="row px-3 ">
 			<div class="col-sm">
 				<button class="submit btn btn-primary  btn-block mb-3" name="act" value="update" >Update Profile</button></div>
-			<div class="col-sm"><button class="btn btn-secondary btn-block mb-3" id="deleteBtn" name="act" value="delete">Delete Account</button></div>
+			<div class="col-sm-4"><button class="btn btn-secondary btn-block mb-3" id="deleteBtn" name="act" value="delete">Delete Account</button></div>
 		</div>
  	 </form>	
 </div>

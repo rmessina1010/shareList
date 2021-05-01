@@ -19,7 +19,7 @@
 				'lim'=>true,
  				'req'=> 'You must provide an email for your account.',
 				'email'=> 'The email provided is not valid.',
-				'exists'=> array('err'=>'That account already exists. Use a different email.', 'args'=>array('t'=>'ListOwnersNew', 'c'=>'LOEmail'), 'x'=>false),
+				'inDB'=> array('err'=>'That account already exists. Use a different email.', 'args'=>array('t'=>'ListOwnersNew', 'c'=>'LOEmail'), 'x'=>false),
   				),
 			'Firstname'=>array(
  				'req'=> 'Please tell us your name.',
@@ -53,7 +53,7 @@
 			$q=new RMSO(false,$SQL);
 			$q->_doQ($data);
   			//** start session as if logged in;
- 			$oops=sharelist_login('email','<p class="error text-center">Opps, something went wrong.</p>','Password1','editProfile.php');
+ 			$oops=sharelist_login('email','Password1','<p class="error text-center">Opps, something went wrong.</p>','dash.php');
   		}
  	}
 	$form_vals = new RMCO(array($form_vals));

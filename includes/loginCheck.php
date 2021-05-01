@@ -18,4 +18,7 @@
 	if (!isset($_SESSION["LISTlogged"]) && ( $currPage !=='index.php' &&  $currPage !== 'sign_up.php')){ 
  		header('Location: index.php') or die("Please log in."); 
 	}
+	elseif ( isset($_SESSION["LISTlogged"]) && ( $currPage=='sharelist' || $currPage == 'index.php' ||  $currPage == 'sign_up.php')){ 
+ 		header('Location: editProfile.php') or die("Error."); 
+	}
  ?>

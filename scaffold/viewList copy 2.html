@@ -1,14 +1,12 @@
 <?
- 	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
-	$listCheck = "SELECT * FROM GLists WHERE GLID = :glid  AND (GLOWner = :ownerid  OR GLEditors LIKE  CONCAT ('%,',:theemail,',%') OR GLEditors LIKE LIKE  CONCAT ('%,',:theemail,',%') )";
-	if (!$listCheck){}
-	$item_sql ='SELECT * FROM GLItems WHERE GLID = :glid '.$OPTs.' ODER BY GLIDOrd ASC';
+LID = :lid  AND ( GLOwnerID = :uid OR   :email LIKE LEditors  OR :email LIKE LSubs )
+$items = new RMCDO(false,'SELECT * FROM `GLItems` WHERE `inGList` = :? AND `Needed` = :?' ORDER BY GLIOrd )
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><? echo $listCheck->the(''); ?></title>
+		<title>1-Woodman's Grocery List</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="http://rmdesign.byethost32.com/lists/parts/css/main.css">
@@ -51,7 +49,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
  	</head>
 	<body>
-				<h1 class="h3 text-center"><? echo $listCheck->the(''); ?></h1>
+				<h1 class="h3 text-center">1-Woodman's Grocery List</h1>
 				<form method="POST" id="viewForm" class="collapsable">
 							<div class="view-wrap ">
 					
@@ -79,26 +77,13 @@
 										<i class="fa fa-angle-double-up btn btn-primary  pl-1 pr-1 pb-0 pt-0 float-right"  style="font-size: 110%;" onclick="collapse(this,3)"></i>										
 										</span>
 										<ul class="list-group">
-														<li class="list-group-item">
+																			<li class="list-group-item">
 																			<span class="sleeve text" onclick="toggleClass(this, 'popmode');"><span class="real"><span>SOme text</span></span></span>
 																			<label><input name="need[181]" value="181" type="checkbox" >Salmon</label>																						</li>
-																			
-																			
-																			
-																			
-														<li class="list-group-item">
-															<?php if ($thisItem['comment']): ?>
-															<span class="sleeve text" onclick="toggleClass(this, 'popmode');"><span class="real"><span><? echo $thisItem['comment'];?></span></span></span>
-															<?php endif; ?>
-															<?php if ($thisItem['img']): ?>
-															<span class="sleeve image" onclick="toggleClass(this, 'popmode');"><span class="real"><img src="<? echo $thisItem['img'];?>"></span></span>
-															<?php endif; ?>
-															<?php if ($thisItem['qty']): ?>
-															<span class="quant">x<input name="QT[<? echo $thisItem['LIID'];?>]" type="text" value="<? echo $thisItem['qty'];?>"></span>
-															<input name="OQT[<? echo $thisItem['LIID'];?>]" type="hidden" value="2">
-															<?php endif; ?>
-															<label><input name="need[<? echo $thisItem['LIID'];?>]" value="<? echo $thisItem['LIID'];?>" type="checkbox" >thick steak</label>
-														</li>
+																																																																		<li class="list-group-item">
+<input name="OQT[11]" type="hidden" value="2"><span class="sleeve image" onclick="toggleClass(this, 'popmode');"><span class="real"><img src="http://1.bp.blogspot.com/-8l-tPzwTH90/VMZ9ea1NFrI/AAAAAAAAC_s/uT23aMEcDLM/s1600/nutella.png"></span></span>
+<span class="quant">x<input name="QT[11]" type="text" value="2"></span>
+<label><input name="need[11]" value="11" type="checkbox" >thick steak</label>																</li>
 																																																																																																																																																																																																																																															</ul>
 		</li>
 									<li class="category">
