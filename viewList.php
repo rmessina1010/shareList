@@ -88,15 +88,15 @@
 				<h1 class="h3 text-center"><? echo $listCheck->the_('GLName'); ?></h1>
 				<form method="POST" id="viewForm" class="collapsable">
 					<div class="view-wrap ">
-						<ul class="list"> 
+						<ul class="list" id="rootListUL"> 
 							<? echo VLF_categories($theList); ?>						
 						</ul>
 					</div>
 					<div class="control  fixed-bottom">
 						<input  type="hidden" name="inList" id="inList" value="<? echo $listID;?>">
-						<input  type="hidden" name="t" id="inList" value="<? echo $_SESSION['LISTlogged']['stoken'];?>">
+						<input  type="hidden" name="t" id="t" value="<? echo $_SESSION['LISTlogged']['stoken'];?>">
 						<button type="submit" value="Update List" name="subbed" class="btn btn-primary">Update</button>							<button type="submit" value="Edit List" class="btn btn-secondary" name="subbed">Edit list</button>
-						<button type="submit" value="Edit Profile" name="subbed" class="btn btn-secondary">Edit Profile</button>
+						<!--<button type="submit" value="Edit Profile" name="subbed" class="btn btn-secondary">Edit Profile</button>-->
 						<button type="submit" value="Dashboard" name="subbed" class="btn btn-secondary">Dashboard</button>						<button type="submit"  value="Logout" class="btn btn-secondary float-right" name="subbed">Logout</button>
 						<!--
 						<a href="dashboard.php?lid=xx" class="btn btn-secondary">Dashboard</a>
@@ -105,7 +105,7 @@
 	 				</div>
  				</form>
 	</body>
-	<script type="text/javascript"  src="http://rmdesign.byethost32.com/sharelist/js/general.js"></script>
+ 	<script type="text/javascript"  src="http://rmdesign.byethost32.com/sharelist/js/general.js"></script>
 	<script type="text/javascript">
 		var futbar  =  document.getElementsByClassName('fixed-bottom');
 		if (futbar[0]){

@@ -61,7 +61,8 @@
  ?><!DOCTYPE html>
  <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>ShareList: Sign Up</title>
 		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="design/css/front_form.css" media="screen">

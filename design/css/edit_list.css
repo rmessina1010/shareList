@@ -1,0 +1,103 @@
+    	.columnade  .list-group .list-group-item:hover{
+	    	background:#dfdfdf;
+	    	
+    	}
+    	.button-sect{
+		    width:100%;
+ 			
+		}
+ 	    
+ 	    body>.container{
+	 	    padding-bottom: 6em;
+ 	    }
+		
+		label{ font-weight: bold ; font-size: .8em;}
+		
+		.columnade textarea {
+			height: 2.35em;
+		}
+		
+		.item-ctrl{
+		    width: 3em;
+	    }
+	    
+	    .num-ctrl{
+			width:66% !important; 
+		}
+
+    	@media screen and (min-width:767px){
+	    	
+	    			.num-ctrl{
+			width:4em !important; 
+			vertical-align: top;
+		}
+
+
+	        .item-ctrl{
+		        width: auto;
+	        }
+	    	.control-inner{
+		    	display: flex;
+	    	}
+ 	    	.button-sect{
+		    	width:40%;
+ 		    	display: flex;
+
+	    	}
+	    	.button-sect + .button-sect{
+			    margin-left: auto;
+ 	    	}
+ 	    	
+ 	    	body>.container{
+	 	    	padding-bottom: 3em;
+ 	    	}
+ 	    	
+ 	    	.ilb{
+	 	    	display: inline-block !important;
+ 	    	}
+     	}
+     	
+     	.no-gutters input.form-control{
+	     	padding-left: .5em;
+	     	padding-right: .5em;
+     	}
+     	
+     	/*
+       	.list-group-item .list-group-item{
+	     	background: purple;
+	     	position: relative;
+     	}
+     	.list-group-item .list-group-item span, .list-group-item .list-group-item .row, .list-group-item .list-group-item div{
+	     	position: static !important;
+     	}
+      	.item-label:after{
+	     	content: '';
+	     	position: absolute !important;
+	     	top:0;
+	     	left: 0;
+	     	right: 0;
+	     	bottom: 0;
+	     	z-index: 2;
+	     	pointer-events: pass-through;
+	     
+      	}
+     	.columnade{
+	     	display: block;
+-webkit-columns: 400px 2 !important;
+   -moz-columns: 400px 2 !important;
+        columns: 400px 2 !important;
+        -webkit-column-break-inside:avoid;
+        -moz-column-break-inside:avoid;
+        column-break-inside:avoid;
+     	}
+     	*/
+     	
+     	li.category:nth-child(odd){
+	     	background: #efefef;
+     	}
+     	.cat-label>span, .list-title>label{
+ 	     	align-self: center;
+     	}
+     	ul li.highlite{
+	     	background: pink!important;
+     	}

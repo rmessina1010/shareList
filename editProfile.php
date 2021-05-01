@@ -4,7 +4,7 @@
 	include_once  ('includes/rm_passwordFoos.php');
 	include_once  ('includes/validation_foos.php');
 	$oops='';
-	if(isset($_POST['act'])){ /////
+	if(isset($_POST['act'])  &&  $_SESSION['LISTlogged']['stoken'] == $_POST['t']){ /////
 		if ($_POST['act'] === 'delete'){
 	 		$q=new RMSO(false,'DELETE FROM `ListOwnersNew` WHERE `LOID` = :u' );
 	 		$r=$q->_doQ(array(':u'=>$_SESSION["LISTlogged"]['UserID']));
@@ -90,7 +90,8 @@
 <html>
 	<head>
 		<title><? echo $_SESSION["LISTlogged"]['username'] ?>'s Profile</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="design/css/edit_profile.css" media="screen">
  	</head>
@@ -134,6 +135,7 @@
 	    </div>
 		<div class="row px-3 ">
 			<div class="col-sm">
+				<input  type="hidden" name="t" id="t" value="<? echo $_SESSION['LISTlogged']['stoken'];?>">
 				<button class="submit btn btn-primary  btn-block mb-3" name="act" value="update" >Update Profile</button></div>
 			<div class="col-sm-4"><button class="btn btn-secondary btn-block mb-3" id="deleteBtn" name="act" value="delete">Delete Account</button></div>
 		</div>

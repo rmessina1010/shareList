@@ -41,7 +41,7 @@ EOT;
 	                        </label>
 	                        <input class="form-control col mb-2 ml-2" type="text"  name="itemName[]" value="{$item['ItemName']}">
 			            </span>
-	                    <label class="ml-2"> Qty.: <input class="form-control d-inline-block ml-2 num-ctrl" type="number"  min="0" value="{$item['QTY']}">
+	                    <label class="ml-2"> Qty.: <input class="form-control d-inline-block ml-2 num-ctrl" type="number" name="qt[]" min="0" value="{$item['QTY']}">
 	                    </label>
 	                </div>
 	                <span  class="pl-1 item-ctrl">
@@ -52,10 +52,10 @@ EOT;
 	        </div> 
 	        <div class="row">
 	             <div class="col-sm d-flex mb-2">
-	                 <label class="mr-2">Image:</label> <input type="text" class="form-control" value="{$item['image']}">
+	                 <label class="mr-2">Image:</label> <input type="text" class="form-control" name="img[]"value="{$item['image']}">
 	            </div>
 	            <div class="col-sm d-flex">
-	                 <label class="mr-2">Notes:</label><textarea class="form-control" height="1">{$item['notes']}</textarea> 
+	                 <label class="mr-2">Notes:</label><textarea class="form-control" height="1" name="comm[]">{$item['notes']}</textarea> 
 	            </div>
 	        </div>
         </li>
@@ -111,14 +111,18 @@ EOT;
 	   $notes = ($thisItem['notes']) ?  "<span class=\"sleeve text\" onclick=\"toggleClass(this, 'popmode');\"><span class=\"real\"><span>{$thisItem['notes']}</span></span></span>" :'';
 	   $images = ($thisItem['image']) ?  "<span class=\"sleeve image\" onclick=\"toggleClass(this, 'popmode');\"><span class=\"real\"><img src=\"{$thisItem['image']}\"/></span></span>" :'';
 	   $isChecked =  !$thisItem['Needed'] ? ' CHECKED ': '';
-	   $qty	=  ($thisItem['QTY'] > 1) ?  "<span class=\"quant\">x<input name=\"QT[{$thisItem['GLIID']}]\" type=\"text\" value=\"{$thisItem['QTY']}\"></span>
-										<input name=\"OQT[{$thisItem['GLIID']}]\" type=\"hidden\" value=\"2\">":'';
+	   $autoUpdate = (isset($_SESSION['LISTlogged']['prefs']['auto'] ) && $_SESSION['LISTlogged']['prefs']['auto'])  ?
+	   				 'onchange="AUView(this)"' : '';
+	   				 
+	   $qty	=  ($thisItem['QTY'] > 1) ?  "<span class=\"quant\">x<input name=\"QT[{$thisItem['GLIID']}]\" type=\"text\" value=\"{$thisItem['QTY']}\" $autoUpdate></span>
+										<input name=\"OQT[{$thisItem['GLIID']}]\" type=\"hidden\" value=\"{$thisItem['QTY']}\">":'';
+										
 	   $res=<<<EOT
 									<li class="list-group-item">
 										$notes
 										$images
 										$qty
- 										<label><input name="need[{$thisItem['GLIID']}]" value="{$thisItem['GLIID']}" type="checkbox" $isChecked >{$thisItem['ItemName']}</label>
+ 										<label><input name="need[{$thisItem['GLIID']}]" value="{$thisItem['GLIID']}" type="checkbox" $isChecked $autoUpdate>{$thisItem['ItemName']}</label>
 									</li>
 EOT;     
 return $res;   

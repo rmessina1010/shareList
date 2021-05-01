@@ -1,3 +1,7 @@
+	const serviceURL ='http://rmdesign.byethost32.com/sharelist/_services.php?';
+	const _STOKEN = document.getElementById('t').value;
+
+
 	function setPrefQS(logout){ /// set preferences
 		if (logout === undefined) { logout = false;}
 		var acc=document.getElementById('accordion').checked ? 1:0;
@@ -12,7 +16,7 @@
 	
 	
 	function  itemAdjuster(el){//  togles read only on Qty. Input.
-		Qt=el.parentNode.parentNode.querySelector('input[name="qt[]"]');
+		Qt=el.parentNode.parentNode.parentNode.querySelector('input[name="qt[]"]');
 		needFul=el.parentNode.querySelector('input[name="theNeed[]"]');
 		needFul.value = el.checked ? 1 :0;
 		Qt.readOnly=!el.checked ; 
@@ -37,11 +41,11 @@
 	}
 	
 	function addToDeleteList(dataBit, storeDel){
- 		if ( storeDel === undefined ){ storeDel = 'toDelete';  }
+  		if ( storeDel === undefined ){ storeDel = 'toDelete';  }
  		if ( typeof storeDel ==='string'){ storeDel = document.getElementById(storeDel);}
- 		if ( !isInput(storeDel) ){ return; }
+ 		if ( !isInput(storeDel) || dataBit  == '?' ||   dataBit == 'NULL' ){ return; }
 		var glue= storeDel.value == '' ? '':',';
-		if(storeDel && dataBit !=='?' ) {storeDel.value=storeDel.value+glue+dataBit;}
+		if(storeDel ) {storeDel.value=storeDel.value+glue+dataBit;}
    	}
    	
 	function toggleClass(obtain,clss,lvl){ //( element || node list or query string ) , class to togle, [target ancetser level... in case of element])
@@ -166,6 +170,7 @@
 		 	if	(typeof method == 'undefined'){method="GET";}
 			method=method.toUpperCase()
 		 	if 	(method != "POST"){ method="GET"; }
+		 	if(url[url.length -1] =='?') {  url = url.substr(0,url.length-1)}
  		 	url = ( typeof data =='string' && method=="GET") ? url+"?"+data : url;
 		 	var dat = (method === "GET" || typeof data === 'undefined') ? null : data;
  		 	req.open(method, url, true);
@@ -175,24 +180,24 @@
 		 	return req;		   
 		 }	
 
-
-
-		var AU_URL='parts/processors/updateView.php';
-		function autoUpdateDB(obj){ 
-				var AU_inList= document.getElementById('inList').value;
+		
+		function AUView(obj){ 
+ 
+				var AU_inList = document.getElementById('inList').value;
 				var theData ='';
- 				if (obj.type  == 'checkbox' ) { 
+ 				if (obj.type == 'checkbox' ) { 
  					var need=  obj.checked ?   '0' :'1';
- 					theData='isNeeded='+need; 
- 				}
- 				else{ theData='qty='+ obj.value;  }
-				 theData+='&inList='+AU_inList+'&theName='+obj.name;
-		 	var req=AJAXhandler(AU_URL, theData);
+ 					theData='isNeeded=' + need; 
+ 				}else{ 
+	 				theData= (theData ? '&' : '')+'qty=' + obj.value;  
+	 			}
+				theData+='&inList='+AU_inList+'&theName='+obj.name+'&AUV=1&_t='+_STOKEN;
+  				var req=AJAXhandler(serviceURL, theData);
 		  		req.onreadystatechange = function(){
 		 			if(req.readyState == 4 && req.status == 200 ){
-		 		   		if (req.responseText) {alert  (req.responseText);}
+		 		   		if (req.responseText.indexOf('error') > -1) {alert  (req.responseText);}
 		 			}
-		 		 }
+		 		}
 		 }
 		 
 	function confirmSub(m){

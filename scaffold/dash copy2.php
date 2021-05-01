@@ -8,24 +8,28 @@
 
 
 	if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t']){
-		$editors = '';
-		$subs = '';
-		if ($_POST['subbed'] == 'Manage_Update' && $_POST['listNewName']){
- 			$nameChange = ", 'GLName' = :newname";
-			$data['newname'] = $_POST['listNewName'];
-			
-		}
-		if ($_POST['subbed'] == 'Manage_Add'  && $_POST['listNewName']){
- 			
-		}
-		include ('includes/submit_redirs.php');
+			    //update preferences
+  				$needUpdate =  (count($_POST['prefs']) != count($_SESSION['LISTlogged']['prefs']));
+  				if (!$needUpdate){
+	  				foreach ($_POST['prefs'] as $prefKey=>$prefVal){
+		  				if (!isset($_SESSION['LISTlogged']['prefs'][$prefKey])){
+			  				$needUpdate =true;
+			  				break;
+		  				}
+	  				}
+  				}
+  				if ($needUpdate){
+	  				$_SESSION['LISTlogged']['prefs'] =  $_POST['prefs'];
+ 	  				doQ('UPDATE `ListOwnersNew` SET `LOPrefs` =:p WHERE `LOID`=:id', array(':p'=>implode(',',array_keys($_POST['prefs'])), ':id'=>$_SESSION['LISTlogged']['UserID']));
+  				}
+  				
+  				
+  				include ('includes/submit_redirs.php');
 	}
 
   ?><html>
 	<head>
 		<title>ShareList Dashborard: <? echo $_SESSION["LISTlogged"]['username']; ?></title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
 		<style type="text/css" media="screen">
 			.section {
@@ -122,7 +126,7 @@
 	  			</div>
 	  			<div class="section">
   	 			<h6 class="">User Preferences:</h6>
-				<div class="row no-gutters " id="prefblock">
+				<div class="row no-gutters">
 							<div class="col  p-2"><label class="form-control"><input  type="checkbox" name="prefs[view]" id="all"   value="1"  <? echo  (isset($_SESSION["LISTlogged"]['prefs']['view']) && $_SESSION["LISTlogged"]['prefs']['view']) ? ' CHECKED ' : '' ; ?>	> View All</label></div>
 							<div class="col  p-2"><label class="form-control"><input  type="checkbox" name="prefs[acc]" id="accordion"   value="1" <? echo  (isset($_SESSION["LISTlogged"]['prefs']['acc']) && $_SESSION["LISTlogged"]['prefs']['acc']) ? ' CHECKED ' : '' ; ?>					 
  > Accordion</label></div>
@@ -162,11 +166,11 @@
 				</div>
 				<div class="row no-gutters">
 	 				<div class="col-sm p-2 "> 
-		 				<input type="text" name='listNewName' id='listNewName' class="form-control">
+		 				<input type="text" name='listName' id='listName' class="form-control">
  	 				</div>
 	 				<div class="col-sm-3 p-2 "> 
 		 			   <button class="btn btn-primary btn-block   edit-view" type="submit" name="subbed"  value="Manage_Update">Update</button>
- 		 			   <button class="btn btn-primary btn-block m2 add-view" type="submit" name="subbed" value="Manage_Add">Add</button>
+ 		 			   <button class="btn btn-primary btn-block m2 add-view" type="submit" name="subbed" value="Manage_ADD">Add</button>
 	 				</div>
  				</div>
  				<div class="row no-gutters">
@@ -185,15 +189,13 @@
 						 <div class="add-shell"><input class="toadd" type="email"><span class="add-icon"></span></div>
 					 </div></div>
 			</div>
-			<input  type="hidden" name="t" id="t" value="<? echo $_SESSION['LISTlogged']['stoken'];?>">
+			<input  type="hidden" name="t" id="inList" value="<? echo $_SESSION['LISTlogged']['stoken'];?>">
 	  	</div>
  		   </form>
 		</div>
 		 
 	</body>
 		<script type="text/javascript">
-			const serviceURL ='http://rmdesign.byethost32.com/sharelist/_services.php?';
-			const _STOKEN = document.getElementById('t').value;
  			var selectListManage = document.getElementById('manageList');
 			var ownedListActions = document.getElementById('ownedListActions');
 	 		var theShareesList = document.querySelector('#sharees ul.thelist');
@@ -250,14 +252,6 @@
 	 	 		 listHandler.call(this, e,makeItem, ["shared[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
 	 		 }
  
-	 		 function prefHandler(e){
-		 		if (e.target.tagName === 'INPUT'){ 
- 			 		   let prefName  = e.target.name.replace('prefs[', '').replace(']', '');
-			 		   let isChecked = e.target.checked ? '1' : '0';
-			 		   doAJAX(serviceURL+'pref='+prefName+'&'+'isChecked='+isChecked+'&_t='+_STOKEN);
- 			 	}
-	 		 }
- 
  	  		function manageListHandler(e){
 	 	  		let isMakeNewList = (e.target.value == '');
 	 	  		let listSegment = e.target.parentNode.parentNode.parentNode; 
@@ -267,7 +261,7 @@
 			 		return;
 			 	}
 		 		doAJAX(
-		 		     serviceURL+'eml=s,e&glid='+e.target.value+'&_t='+_STOKEN,
+		 		    'http://rmdesign.byethost32.com/sharelist/_services.php?eml=s,e&glid='+e.target.value,
 		 		     null, 
 		 		     insertToInnerHTML,
 		 		     'GET',
@@ -294,7 +288,6 @@
 			  	}
 			 }
 
-			prefblock.addEventListener('click', prefHandler);
 			editors.addEventListener('click', editorHandler);
 			sharees.addEventListener('click', shareesHandler);
 	 		selectListManage.addEventListener('change', manageListHandler);
@@ -324,11 +317,7 @@
 							  if (typeof handlerArgs  === typeof []){ arry=arry.concat(handlerArgs);}
 							  else{ arry.push(handlerArgs)}
 						}
-						if(req.status == 200){ 
- 							if (!!(handler && handler.constructor  &&  handler.apply)){ 
-	 							handler.apply(this, arry);
- 							}  
-						}
+						if(req.status == 200){ handler.apply(this, arry);}
 						else if(doFail){ doFail.apply(this, arry); }
 	 				}
 				}
