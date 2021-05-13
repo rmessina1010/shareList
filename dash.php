@@ -2,24 +2,36 @@
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
 	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
 	include_once  ('includes/functions_forms.php');
-	
-	$listSQL = "SELECT * FROM `GLists` WHERE (`GLOwner` = :ownerid  OR (`GLEditors` LIKE :theemail) OR (`GLSubs` LIKE :theemail)) ORDER BY `GLName` ASC"; //SQL selects lists based on ownerID and ownerEmail
-	$lists = new RMCDO(false, $listSQL, array( ':theemail'=>'%,'.$_SESSION["LISTlogged"]['email'].',%', ':ownerid'=>$_SESSION["LISTlogged"]['UserID']));
-
-
+ 
 	if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t']){
-		$editors = '';
-		$subs = '';
-		if ($_POST['subbed'] == 'Manage_Update' && $_POST['listNewName']){
- 			$nameChange = ", 'GLName' = :newname";
-			$data['newname'] = $_POST['listNewName'];
-			
+		$SQL  = false;
+ 		$data[':editors']	= ','.implode(',', $_POST['editors']).',';
+ 		$data[':shares']		= ','.implode(',', $_POST['shares']).',';
+   		$glistname ='';
+  		if ($_POST['listNewName']){
+	  		$glistname = ' `GLName` = :listname, ';
+  		}
+ 		/// UPDATE LIST
+		if ($_POST['subbed'] == 'Manage_Update'){
+  			$data[':glid'] = $_POST['manageList'];
+ 			$SQL = 'UPDATE `GLists` SET '.$glistname.' `GLEditors` = :editors, `GLSubs` = :shares WHERE `GLID` = :glid';
 		}
-		if ($_POST['subbed'] == 'Manage_Add'  && $_POST['listNewName']){
- 			
+		// ADD LIST
+		if ($_POST['subbed'] == 'Manage_Add'  &&  $_POST['listNewName']){
+ 			$data[':owner']		= $_SESSION["LISTlogged"]['UserID'];
+ 			$SQL = 'INSERT INTO `GLists` (`GLOwner`, `GLName`, `GLEditors`, `GLSubs`) VALUES (:owner, :listname, :editors, :shares)';
 		}
+		// DELETE LIST
+		if ($_POST['subbed'] == 'Manage_Delete' ){
+  			$SQL = 'DELETE FROM `GLists` WHERE  `GLID` = ? )';
+  			$data = array($_POST['manageList']);
+		}
+		if ($SQL){ doQ($SQL, $data); }
 		include ('includes/submit_redirs.php');
 	}
+
+	$listSQL = "SELECT * FROM `GLists` WHERE (`GLOwner` = :ownerid  OR (`GLEditors` LIKE :theemail) OR (`GLSubs` LIKE :theemail)) ORDER BY `GLName` ASC"; //SQL selects lists based on ownerID and ownerEmail
+	$lists = new RMCDO(false, $listSQL, array( ':theemail'=>'%,'.$_SESSION["LISTlogged"]['email'].',%', ':ownerid'=>$_SESSION["LISTlogged"]['UserID']));
 
   ?><html>
 	<head>
@@ -157,7 +169,7 @@
  						 </select>
 	 				</div>
   	 				<div class="col-sm-3 p-2 edit-view"> 
-		 			   <button class="btn btn-secondary btn-block" type="submit" name="subbed"  value="Manage_Update">Delete</button>
+		 			   <button class="btn btn-secondary btn-block" type="submit" name="subbed"  value="Manage_Delete">Delete</button>
 	 				</div>
 				</div>
 				<div class="row no-gutters">
@@ -180,7 +192,7 @@
 					 <div class="col-sm p-2"><div class="el-list-shell " id="sharees"  >
 						 <h6>Subscribers:</h6>
 						 <ul class="thelist" >
-							<? echo build_email_list(trim($lists->the_('GLSubs'),','),'sharees' , 4,'remove-icon' ); ?>
+							<? echo build_email_list(trim($lists->the_('GLSubs'),','),'shares' , 4,'remove-icon' ); ?>
 						 </ul>
 						 <div class="add-shell"><input class="toadd" type="email"><span class="add-icon"></span></div>
 					 </div></div>
@@ -198,8 +210,7 @@
 			var ownedListActions = document.getElementById('ownedListActions');
 	 		var theShareesList = document.querySelector('#sharees ul.thelist');
 	 		var theEditorsList = document.querySelector('#editors ul.thelist');
- 		
-	  		function isValidEmail(email, message){
+ 	  		function isValidEmail(email, message){
 				  if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))){
 					  if(message){ alert(message);}
 					  return false;
@@ -244,10 +255,10 @@
 	 		 }
 	 		 
 	  		 function editorHandler(e){
-	 	 		 listHandler.call(this, e,makeItem, ["editor[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
+	 	 		 listHandler.call(this, e,makeItem, ["editors[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
 	 		 }
 	 		 function shareesHandler(e ){
-	 	 		 listHandler.call(this, e,makeItem, ["shared[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
+	 	 		 listHandler.call(this, e,makeItem, ["shares[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
 	 		 }
  
 	 		 function prefHandler(e){
@@ -273,7 +284,7 @@
 		 		     'GET',
 		 		 	[ 
 		 		 		[theShareesList, theEditorsList],
-		 		 		['#shareesEmails', '#editorsEmails']
+		 		 		['#sharesEmails', '#editorsEmails']
 		 		 	]
 		 		 );
 	  		}
