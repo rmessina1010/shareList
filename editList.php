@@ -185,6 +185,7 @@
      	ul li.highlite{
 	     	background: pink!important;
      	}
+     	
     </style>
 </head>
 
@@ -214,7 +215,7 @@
 	<div class="button-sect  d-flex">
 		<button type="button" onclick="addBefore(mainList)" class="btn btn-block m-1  btn-outline-secondary btn-sm">Add Category</button>
 		<button type="button" onclick="checkToggle(this,5,'.toggle')" class="btn btn-block m-1  btn-outline-secondary btn-sm">Check All</button>
-		<button class="btn btn-block m-1 btn-primary btn-sm" type="submit" name="subbed" value="<? echo $updateBttnVal?>" onclick="this.className='hide';" >Update</button>
+		<button class="btn btn-block m-1 btn-primary btn-sm" type="submit" name="subbed" value="<? echo $updateBttnVal?>" onclick="this.className=this.className+' hidesub';" >Update</button>
 		<input id="toDelete" type="hidden" name="toDelete">
  	</div>
 		<div class="button-sect  d-flex">

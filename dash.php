@@ -158,14 +158,14 @@
 	 				</div>
  				</div>
  	  			</div>
-	  			<div class="section">
+	  			<div class="section add-mode">
  	 			<h6 class="section-title">Manage List:</h6>
 				<div class="row no-gutters">
 	 				<div class="col-sm p-2 "> 
-						 <select name="manageList" id="manageList" class="form-control">
+						 <select name="manageList" id="manageList" class="form-control ">
+							<option value="">--NEW LIST--</option>
 				 	<? 
 					 	echo build_opts('{{:GLName:}}', $lists->dump(), '{{:GLID:}}', false,3, array('GLOwner',$_SESSION["LISTlogged"]['UserID'],'!=')); ?>
-						<option value="">--NEW LIST--</option>
  						 </select>
 	 				</div>
   	 				<div class="col-sm-3 p-2 edit-view"> 
@@ -185,14 +185,14 @@
 					 <div class="col-sm p-2"><div class="el-list-shell col-sm p-2" id="editors" >
 						 <h6>Editors:</h6>
 						 <ul class="thelist"  >
-							 <? echo build_email_list(trim($lists->the_('GLEditors'),','),'editors' , 4,'remove-icon' ); ?>
+							 <? /*echo build_email_list(trim($lists->the_('GLEditors'),','),'editors' , 4,'remove-icon' ); */?>
 						 </ul>
 						 <div class="add-shell"><input class="toadd" type="email"><span class="add-icon"></span></div>
 					 </div></div>
 					 <div class="col-sm p-2"><div class="el-list-shell " id="sharees"  >
 						 <h6>Subscribers:</h6>
 						 <ul class="thelist" >
-							<? echo build_email_list(trim($lists->the_('GLSubs'),','),'shares' , 4,'remove-icon' ); ?>
+							<? /*echo build_email_list(trim($lists->the_('GLSubs'),','),'shares' , 4,'remove-icon' ); */?>
 						 </ul>
 						 <div class="add-shell"><input class="toadd" type="email"><span class="add-icon"></span></div>
 					 </div></div>
