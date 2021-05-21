@@ -130,7 +130,7 @@
 		    <div class="form-group col-sm">
 		      <label for="currpass">Current Password <? echo $form_errs->the_('currpass','<span class="error">','</span>')?></label>
 		      <input type="password" class="form-control" id="currpass"  name="currpass" >
-			  <small  class="form-text text-muted">For security purposes, your current password is required when making changes to your profile.</small>
+			  <small class="form-text text-muted">For security purposes, your current password is required when making changes to your profile.</small>
 		    </div>
 	    </div>
 		<div class="row px-3 ">
@@ -149,5 +149,5 @@
 		 deleteBtn.onclick = function(){
 			 return confirm("Are you sure you wish to delete your account? The action is permanent and all your infomation will be lost. Click Cancel to abort. OK to continue.");
  		 }
- 		 
-</script></html>
+</script>
+</html>
