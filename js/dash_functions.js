@@ -20,7 +20,7 @@ function listHandler(e, createItem, createItemArgs, validate,  validateArgs){
  function editorHandler(e){
 	 listHandler.call(this, e,makeItem, ["editors[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
  }
- function shareesHandler(e ){
+ function shareesHandler(e){
 	 listHandler.call(this, e,makeItem, ["shares[]",'LI', 'hidden'],isValidEmail, ['Please enter a valid email address.'] )
  }
 
@@ -59,3 +59,6 @@ prefblock.addEventListener('click', prefHandler);
 editors.addEventListener('click', editorHandler);
 sharees.addEventListener('click', shareesHandler);
 selectListManage.addEventListener('change', manageListHandler);
+
+
+

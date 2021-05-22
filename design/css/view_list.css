@@ -1,0 +1,27 @@
+.list-group-item label input{ margin-right: .33em;    }
+.list-group-item label{ display: block !important;  padding: .5em  ; margin:0 !important; overflow: hidden;}
+.real { z-index: 4000}
+.row{
+	 margin: 0;
+	 padding: 0;
+	 list-style: none;
+}
+form.collapsable .category{
+	background: #eee;
+	padding-bottom: .67em;
+}
+form.collapsable .category:nth-child(2n+1){
+	background: #bbb;
+
+}
+.list-group-item{ padding:0 !important; font-size: 70%;}
+.list-group-item:hover, .categoryName i:hover { background: var(--teal); color: #fff;}
+.categoryName i:hover { border-color: #09af7b;}
+
+textarea.share-list { display:block; width: calc(100% - 1.34em); margin:1em .67em; padding:.2em .5em; column-count:3; -webkit-column-count:3; line-height: 2; }
+button.share-list.shw:before {
+	content: 'Show ';
+}
+button.share-list:before {
+	content: 'Hide ';
+}

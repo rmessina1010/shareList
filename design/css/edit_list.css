@@ -7,9 +7,9 @@
  			
 		}
  	    
- 	    body>.container{
+ 	    /*body>.container{
 	 	    padding-bottom: 6em;
- 	    }
+ 	    }*/
 		
 		label{ font-weight: bold ; font-size: .8em;}
 		
@@ -48,9 +48,9 @@
 			    margin-left: auto;
  	    	}
  	    	
- 	    	body>.container{
+ 	    	/*body>.container{
 	 	    	padding-bottom: 3em;
- 	    	}
+ 	    	}*/
  	    	
  	    	.ilb{
 	 	    	display: inline-block !important;

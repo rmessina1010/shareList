@@ -1,6 +1,16 @@
 	const serviceURL ='http://rmdesign.byethost32.com/sharelist/_services.php?';
 	const _STOKEN = document.getElementById('t').value;
 
+	//** padds bottom to accomodate control menu on pages that have it
+	var futbar  =  document.getElementsByClassName('fixed-bottom');
+	if (futbar[0]){
+		document.body.style.paddingBottom = (futbar[0].offsetHeight+ 2)+'px';
+		window.onresize = function (){
+ 			document.body.style.paddingBottom = (futbar[0].offsetHeight+ 2)+'px';
+		}
+	} 
+	////
+
 
 	function setPrefQS(logout){ /// set preferences
 		if (logout === undefined) { logout = false;}

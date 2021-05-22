@@ -16,56 +16,7 @@
  		header('Location: error.php?e=1');
 		die;
 	}
-	if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t']){// process form
-		
-
-	   if ($_POST['subbed'] === $updateBttnVal){
-		//var_dump($_POST['theNeed']); 
-			 $Q=false;
-			 $listTitle =trim(strip_tags($_POST['listTitle']));
-			 if ($listName !== $listTitle && $listTitle !== '' ){
-			   doQ('UPDATE `GLists` SET `GLName` =:n WHERE `GLID`=:id AND `GLOwner`=:own' , array(':n'=>$listTitle,':id'=> $GLID,':own'=>$_SESSION["LISTlogged"]['UserID'])) ;  //echo 'change list name to'.$_POST['listTitle'];
-			   $listName = $listTitle;
- 			 }
-			 if (isset($_POST['toDelete']) && $_POST['toDelete']){
- 			   doQ('DELETE FROM `GLItems` WHERE `GLIID` IN('.$_POST['toDelete'].')');//echo 'delete these items:'.$_POST['toDelete'];
-			 }
-	 		 $catNegOffset=0;
-			 $itemOrder=1;
-			 $theCategory ='';
-			 if (isset($_POST['itemID']) && $_POST['itemID']){
-				 foreach ($_POST['itemID'] as $itemKey=>$itemKeyVal){
-				 	$coordinatedKey=$itemKey-$catNegOffset;
-				 	$qt= ($_POST['qt'][$coordinatedKey] > 1) ? $_POST['qt'][$coordinatedKey] : 1; // prevent quantities of less than 1
-				 	if ($itemKeyVal === 'NULL'){ 
-				 		$theCategory = trim(strip_tags($_POST['category'][$itemKey])); // remember category name
-				 		$catNegOffset++; 
-				 		continue;
-				 	}
-				 	if ( trim($_POST['itemName'][$coordinatedKey]) ===''){ continue;}  // no blank named items are allowed
-				 	/// sanitize image, name, comment data
-				 		$itemName = trim(strip_tags($_POST['itemName'][$coordinatedKey]));
-				 		$theImg= trim(strip_tags(rm_sani_attrs(rm_scrub_tags($_POST['img'][$coordinatedKey]))));
-				 		$theComm= rm_sani_attrs(rm_scrub_tags($_POST['comm'][$coordinatedKey]));;
-				 	///
-				 	if ($itemKeyVal === '?'){ 
-				 		doQ('INSERT INTO  `GLItems` (`inGList`,`GLICat`,`ItemName`,`Needed`,`QTY`,`image`,`notes`,`GLIOrd`) VALUES (:in,:cat,:name,:need,:qty,:img, :notes,:ord)' , array(':in'=>$GLID,':cat'=>$theCategory, ':name'=>$itemName,':need'=>$_POST['theNeed'][$coordinatedKey],':qty'=>$qt,':img'=>$theImg,':notes'=>$theComm,':ord'=>$coordinatedKey )) ;//echo "$theCategory: insert new item with order =$itemOrder needed:{$_POST['theNeed'][$coordinatedKey]}<br>";
-				 	}
-				 	else{
-				 		doQ('UPDATE  `GLItems` SET `inGList` = :in ,`GLICat` = :cat ,`ItemName` =  :name,`Needed` = :need, `QTY` = :qty,`image` = :img ,`notes` = :notes, `GLIOrd` =:ord WHERE `GLIID` = :id ' , array(':in'=>$GLID,':cat'=>$theCategory, ':name'=>$itemName,':need'=>$_POST['theNeed'][$coordinatedKey],':qty'=>$qt,':img'=>$theImg, ':notes'=>$theComm ,':ord'=>$coordinatedKey, ':id'=> $itemKeyVal)) ; //echo "$theCategory: edit item id=$itemKeyVal with order =$itemOrder needed:{$_POST['theNeed'][$coordinatedKey]} <br>";
-				 	}
-				 	$itemOrder++;
-				 }
-			}
-		}
-
-
-
-
-
-		include ('includes/submit_redirs.php');
-	}
-
+	include('includes/editList_process.php');
 	
 	$listID=  $listCheck->the_('GLID');
 	$item_sql ='SELECT * FROM `GLItems` WHERE `inGList` = :glid  ORDER BY `GLIOrd` ASC';
@@ -74,120 +25,14 @@
 ?><!DOCTYPE html>
 <html>
 
-<head>
+<head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Edit List:<? echo $listName; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    
-    <style type="text/css" media="screen">
-    	.columnade  .list-group .list-group-item:hover{
-	    	background:#dfdfdf;
-	    	
-    	}
-    	.button-sect{
-		    width:100%;
- 			
-		}
- 	    
- 	    body>.container{
-	 	    padding-bottom: 6em;
- 	    }
-		
-		label{ font-weight: bold ; font-size: .8em;}
-		
-		.columnade textarea {
-			height: 2.35em;
-		}
-		
-		.item-ctrl{
-		    width: 3em;
-	    }
-	    
-	    .num-ctrl{
-			width:66% !important; 
-		}
-
-    	@media screen and (min-width:767px){
-	    	
-	    			.num-ctrl{
-			width:4em !important; 
-			vertical-align: top;
-		}
-
-
-	        .item-ctrl{
-		        width: auto;
-	        }
-	    	.control-inner{
-		    	display: flex;
-	    	}
- 	    	.button-sect{
-		    	width:40%;
- 		    	display: flex;
-
-	    	}
-	    	.button-sect + .button-sect{
-			    margin-left: auto;
- 	    	}
- 	    	
- 	    	body>.container{
-	 	    	padding-bottom: 3em;
- 	    	}
- 	    	
- 	    	.ilb{
-	 	    	display: inline-block !important;
- 	    	}
-     	}
-     	
-     	.no-gutters input.form-control{
-	     	padding-left: .5em;
-	     	padding-right: .5em;
-     	}
-     	
-     	/*
-       	.list-group-item .list-group-item{
-	     	background: purple;
-	     	position: relative;
-     	}
-     	.list-group-item .list-group-item span, .list-group-item .list-group-item .row, .list-group-item .list-group-item div{
-	     	position: static !important;
-     	}
-      	.item-label:after{
-	     	content: '';
-	     	position: absolute !important;
-	     	top:0;
-	     	left: 0;
-	     	right: 0;
-	     	bottom: 0;
-	     	z-index: 2;
-	     	pointer-events: pass-through;
-	     
-      	}
-     	.columnade{
-	     	display: block;
--webkit-columns: 400px 2 !important;
-   -moz-columns: 400px 2 !important;
-        columns: 400px 2 !important;
-        -webkit-column-break-inside:avoid;
-        -moz-column-break-inside:avoid;
-        column-break-inside:avoid;
-     	}
-     	*/
-     	
-     	li.category:nth-child(odd){
-	     	background: #efefef;
-     	}
-     	.cat-label>span, .list-title>label{
- 	     	align-self: center;
-     	}
-     	ul li.highlite{
-	     	background: pink!important;
-     	}
-     	
-    </style>
-</head>
+    <link rel="stylesheet" href="design/css/edit_list.css"   type="text/css" media="screen" charset="utf-8">
+ </head>
 
 <body>
 	<div class="container">
@@ -225,7 +70,7 @@
  		<input  type="hidden" name="inList" id="inList" value="<? echo $listID;?>">
 		<input  type="hidden" name="t" id="t" value="<? echo $_SESSION['LISTlogged']['stoken'];?>">
 		<button type="submit" value="View List" class="btn btn-secondary  btn-block m-1 btn-sm" name="subbed">View list</button>
-		<button type="submit" value="Dashboard" name="subbed" class="btn btn-secondary  btn-block m-1 btn-sm">Dashboard</button>					<button type="submit"  value="Logout" class="btn btn-secondary  btn-block m-1 btn-sm" name="subbed">Logout</button>
+		<button type="submit" value="Dashboard" name="subbed" class="btn btn-secondary  btn-block m-1 btn-sm">Dashboard</button>			<button type="submit"  value="Logout" class="btn btn-secondary  btn-block m-1 btn-sm" name="subbed">Logout</button>
  	</div>
 	
 </div></div></div>     

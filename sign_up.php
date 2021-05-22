@@ -31,40 +31,18 @@
    			) 
  	);
  	
- 	$oops='';
-	if(isset($_POST['signup_sub'])){ /////
-		$form_vals = $_POST;
-		$messages = rm_run_test($tests, $_POST);
-		if  ($messages){
-			foreach ($messages as $key=>$fv){ 
-				if ($fv) {$form_vals[$key]='';} 
-			}
-		}else{
-			//** encode pass
-			$form_vals['Password1'] = rm_hash_pass  ($form_vals['Password1']);
-			//** insert data;
-			$data = array();
-			$dkeys =array('LOPassword'=>'Password1' , 'LOName'=>'Firstname'  , 'LOLastName'=>'Lastname', 'LOEmail'=>'email');
-			$sqlData= ':'.implode(', :', $dkeys);
-			$sqlCols= '`'.implode('` , `', array_keys($dkeys)).'`';
-			foreach ($dkeys as $dkey ){ $data[':'.$dkey] = $form_vals[$dkey]; }
-			$SQL= "INSERT INTO `ListOwnersNew` ($sqlCols)  VALUES ($sqlData)";
-			
-			$q=new RMSO(false,$SQL);
-			$q->_doQ($data);
-  			//** start session as if logged in;
- 			$oops=sharelist_login('email','Password1','<p class="error text-center">Opps, something went wrong.</p>','dash.php');
-  		}
- 	}
+	$oops='';//  must come before _process.php
+	include('includes/signup_process.php');
+	
 	$form_vals = new RMCO(array($form_vals));
 	$form_errs = new RMCO(array($messages));
  ?><!DOCTYPE html>
  <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"  >
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>ShareList: Sign Up</title>
-		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
+		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen"  >
 		<link rel="stylesheet" href="design/css/front_form.css" media="screen">
 		
  	</head>

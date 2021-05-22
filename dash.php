@@ -1,48 +1,18 @@
 <?
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
 	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('includes/dash_process.php');
 	include_once  ('includes/functions_forms.php');
- 
-	if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t']){
-		$SQL  = false;
- 		$data[':editors']	= ','.implode(',', $_POST['editors']).',';
- 		$data[':shares']		= ','.implode(',', $_POST['shares']).',';
-   		$glistname ='';
-  		if ($_POST['listNewName']){
-	  		$glistname 			= ' `GLName` = :listname, ';
- 			$data[':listname'] 	= $_POST['listNewName'];
-  		}
- 		/// UPDATE LIST
-		if ($_POST['subbed'] == 'Manage_Update'){
-  			$data[':glid'] = $_POST['manageList'];
- 			$SQL = 'UPDATE `GLists` SET '.$glistname.' `GLEditors` = :editors, `GLSubs` = :shares WHERE `GLID` = :glid';
-		}
-		// ADD LIST
-		if ($_POST['subbed'] == 'Manage_Add'  &&  $_POST['listNewName']){
- 			$data[':owner']		= $_SESSION["LISTlogged"]['UserID'];
- 			$SQL = 'INSERT INTO `GLists` (`GLOwner`, `GLName`, `GLEditors`, `GLSubs`) VALUES (:owner, :listname, :editors, :shares)';
-		}
-		// DELETE LIST
-		if ($_POST['subbed'] == 'Manage_Delete' ){
-  			$SQL[] = 'DELETE FROM `GLists` WHERE  `GLID` = :id';
-  			$SQL[] = 'DELETE FROM `GLItems` WHERE  `inGList` = :id ';
-  			$data = array(':id'=>$_POST['manageList']);
-		}
-		if ($SQL){ doQ($SQL, $data); }
-		include ('includes/submit_redirs.php');
-	}
-
 	$listSQL = "SELECT * FROM `GLists` WHERE (`GLOwner` = :ownerid  OR (`GLEditors` LIKE :theemail) OR (`GLSubs` LIKE :theemail)) ORDER BY `GLName` ASC"; //SQL selects lists based on ownerID and ownerEmail
 	$lists = new RMCDO(false, $listSQL, array( ':theemail'=>'%,'.$_SESSION["LISTlogged"]['email'].',%', ':ownerid'=>$_SESSION["LISTlogged"]['UserID']));
-
-  ?><html>
+?><html>
 	<head>
 		<title>ShareList Dashborard: <? echo $_SESSION["LISTlogged"]['username']; ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="design/css/dashboard.css" media="screen">
-	</head>
+ 	</head>
 	<body>
 		
 		<div class="container">
@@ -128,12 +98,10 @@
  	<script src="js/shared_inits.js" charset="utf-8"></script>
  	<script src="js/dash_vars_init.js" charset="utf-8"></script>
  	<script src="js/dash_functions.js" charset="utf-8"></script>
- 	
  	<script type="text/javascript">
 	    var deleteBtn = document.getElementById('delList');
 		 deleteBtn.onclick = function(){
 			 return confirm("Are you sure you wish to delete this list? The action is permanent and all your infomation will be lost. Click Cancel to abort. OK to continue.");
  		 }
    </script>
-
- </html>
+</html>
