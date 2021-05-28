@@ -1,12 +1,22 @@
 <?
 	if(isset($_POST['act'])  &&  $_SESSION['LISTlogged']['stoken'] == $_POST['t']){ /////
-		if ($_POST['act'] === 'delete'){
-	 		$q=new RMSO(false,'DELETE FROM `ListOwnersNew` WHERE `LOID` = :u' );
-	 		$r=$q->_doQ(array(':u'=>$_SESSION["LISTlogged"]['UserID']));
-			//delete lists and items data beloging to ID
+		//delete lists and items data beloging to ID
+ 		if ($_POST['act'] === 'delete'){
+	 		$delData= array(':u'=>$_SESSION["LISTlogged"]['UserID']);
+	 		// get the users lists
+			$s= new RMSO(false,'SELECT `GLID` FROM `GLists` WHERE `GLOwner` = :u' );
+	 		$r=$s->_doQ($delData);
+	 		$r=$s->STMNT()->fetchAll(PDO::FETCH_COLUMN);
+ 	 		//delete user
+ 	 		doQ( 'DELETE FROM `ListOwnersNew` WHERE `LOID` = :u' ,$delData);
+ 	 		if ($r){  //delete  any lists  might have been created by the user and all items in those lists
+		 		doQ( 'DELETE FROM `GLists` WHERE `GLOwner` = :u' ,$delData);
+		 		doQ( 'DELETE FROM `GLItems` WHERE `inGList` IN ('.implode(',',$r).')');
+   	 		}
 			//logout
   			header('Location:index.php?logout=1');
-		}else{
+		}
+		else{
 			
 	$tests = array( 'Firstname'=>array( 'req'=> 'Please tell us your name.', 'words'=> 'Inavlid name.'), 'Lastname'=>array('req'=> 'Please tell us your last name.','words'=> 'Inavlid name.')  );
  	if( $_POST['email'] && $_SESSION["LISTlogged"]['email']  != $_POST['email']){
@@ -69,16 +79,15 @@
  				$q=new RMSO(false,$SQL);
  				if ( $q->_doQ($data)){				
 					$oops = '<p class="text-success text-center">Profile updated.<p>';
-					if ($form_vals['email'] != $_SESSION["LISTlogged"]['email']) {
-						$_SESSION["LISTlogged"]['email'] = $form_vals['email'] ;
-					}
-				} 
+ 					$_SESSION["LISTlogged"]['email'] = $form_vals['email'] ;
+ 					$_SESSION['LISTlogged']['username']=$form_vals['Firstname'];
+  				}
 	  		}
 	  		$form_vals = new RMCDO(array($form_vals));
 	  		$form_errs = new RMCDO(array($messages));
 	 	}
  	 }else{
- 	    $form_vals = new RMCO(false, 'SELECT `LOName` AS `Firstname`, `LOLastName` AS `Lastname`, `LOEmail` AS `email` FROM `ListOwnersNew` WHERE `LOID` = :id', array(':id'=>$_SESSION["LISTlogged"]['UserID']));
-	  	$form_errs = new RMCO(array());
+ 	    $form_vals = new RMCDO(false, 'SELECT `LOName` AS `Firstname`, `LOLastName` AS `Lastname`, `LOEmail` AS `email` FROM `ListOwnersNew` WHERE `LOID` = :id', array(':id'=>$_SESSION["LISTlogged"]['UserID']));
+	  	$form_errs = new RMCDO(array());
 	 }
 ?>

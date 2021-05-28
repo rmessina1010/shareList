@@ -22,7 +22,7 @@
 	$OPTs ='';
 	if ( $_SESSION["LISTlogged"]['prefs']['view'] == 0){ $OPTs.= ' AND  `Needed` = 1 ';  }
 	$item_sql ='SELECT * FROM `GLItems` WHERE `inGList` = :glid '.$OPTs.' ORDER BY `GLIOrd` ASC';
-	$theList = new RMCDO(false, $item_sql, array($_GET['glid']));
+	$theList = new RMCDO(false, $item_sql, array(':glid'=>$_GET['glid']));
 
  ?><!DOCTYPE html>
 <html>

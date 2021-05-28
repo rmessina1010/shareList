@@ -20,7 +20,7 @@
 	
 	$listID=  $listCheck->the_('GLID');
 	$item_sql ='SELECT * FROM `GLItems` WHERE `inGList` = :glid  ORDER BY `GLIOrd` ASC';
-	$theList = new RMCDO(false, $item_sql, array($_GET['glid']));
+	$theList = new RMCDO(false, $item_sql, array(':glid'=>$_GET['glid']));
 	$is_owner = ($_SESSION["LISTlogged"]['UserID'] == $listCheck->the_('GLOwner'));
 ?><!DOCTYPE html>
 <html>
