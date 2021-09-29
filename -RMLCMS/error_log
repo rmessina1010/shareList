@@ -1,0 +1,32 @@
+[03-Sep-2020 23:16:03 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:16:04 America/Chicago] PHP Warning:  include(RBLDO.php): failed to open stream: No such file or directory in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 3
+[03-Sep-2020 23:16:04 America/Chicago] PHP Warning:  include(RBLDO.php): failed to open stream: No such file or directory in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 3
+[03-Sep-2020 23:16:04 America/Chicago] PHP Warning:  include(): Failed opening 'RBLDO.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 3
+[03-Sep-2020 23:16:04 America/Chicago] PHP Fatal error:  Uncaught Error: Class 'RMLDO' not found in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php:9
+Stack trace:
+#0 {main}
+  thrown in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 9
+[03-Sep-2020 23:16:35 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:16:35 America/Chicago] PHP Warning:  include(RBLDO.php): failed to open stream: No such file or directory in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 2
+[03-Sep-2020 23:16:35 America/Chicago] PHP Warning:  include(RBLDO.php): failed to open stream: No such file or directory in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 2
+[03-Sep-2020 23:16:35 America/Chicago] PHP Warning:  include(): Failed opening 'RBLDO.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 2
+[03-Sep-2020 23:16:35 America/Chicago] PHP Fatal error:  Uncaught Error: Class 'RMLDO' not found in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php:8
+Stack trace:
+#0 {main}
+  thrown in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 8
+[03-Sep-2020 23:16:54 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:16:54 America/Chicago] PHP Warning:  include(RBLDO.php): failed to open stream: No such file or directory in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 2
+[03-Sep-2020 23:16:54 America/Chicago] PHP Warning:  include(RBLDO.php): failed to open stream: No such file or directory in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 2
+[03-Sep-2020 23:16:54 America/Chicago] PHP Warning:  include(): Failed opening 'RBLDO.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/rmessina10/sharelist.raymessinadesign.com/-RMLCMS/-RMCMS.php on line 2
+[03-Sep-2020 23:17:08 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:17:27 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:17:59 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:18:59 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:27:04 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:32:10 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:32:11 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:32:34 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:33:34 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[03-Sep-2020 23:34:32 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[04-Sep-2020 00:30:50 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+[04-Sep-2020 00:31:22 America/Chicago] PHP Warning:  Version warning: Imagick was compiled against Image Magick version 1654 but version 1650 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

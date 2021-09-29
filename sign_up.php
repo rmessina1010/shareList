@@ -1,6 +1,6 @@
 <?
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/rm_passwordFoos.php');
 	include_once  ('includes/validation_foos.php');
 	include_once  ('includes/login_foos.php');
@@ -34,8 +34,8 @@
 	$oops='';//  must come before _process.php
 	include('includes/signup_process.php');
 	
-	$form_vals = new RMCO(array($form_vals));
-	$form_errs = new RMCO(array($messages));
+	$form_vals = new RMCDO(array($form_vals));
+	$form_errs = new RMCDO(array($messages));
  ?><!DOCTYPE html>
  <html>
 	<head>
@@ -52,24 +52,24 @@
 		<h2 class="text-center">Sign up for ShareLIST</h2>
 		<? echo $oops; ?>
 	    <div class="form-group">
-	      <label for="Firstname">First Name <? echo $form_errs->the_('Firstname',0,'<span class="error">','</span>')?></label>
+	      <label for="Firstname">First Name <? echo $form_errs->the_('Firstname','<span class="error">','</span>')?></label>
 	      <input type="text" class="form-control" id="Firstname" name="Firstname" value="<? echo $form_vals->the_('Firstname')?>"  placeholder="Firstname" required="required">
 	     </div>
 	    <div class="form-group">
-	      <label for="Lastname">Last Name <? echo $form_errs->the_('Lastname',0,'<span class="error">','</span>')?></label>
+	      <label for="Lastname">Last Name <? echo $form_errs->the_('Lastname','<span class="error">','</span>')?></label>
 	      <input type="text" class="form-control" id="Lastname" name="Lastname" value="<? echo $form_vals->the_('Lastname')?>"  placeholder="Lastname" required="required">
 	     </div>
 	    <div class="form-group">
-	      <label for="email">Email <? echo $form_errs->the_('email',0,'<span class="error">','</span>')?></label>
+	      <label for="email">Email <? echo $form_errs->the_('email','<span class="error">','</span>')?></label>
 	      <input type="email" class="form-control" id="email" name="email" value="<? echo $form_vals->the_('email')?>"  placeholder="YourEmail@emails.com" required="required">
 	      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 	    </div>
 	    <div class="form-group">
-	      <label for="Password1">Choose Password <? echo $form_errs->the_('Password1',0,'<span class="error">','</span>')?></label>
+	      <label for="Password1">Choose Password <? echo $form_errs->the_('Password1','<span class="error">','</span>')?></label>
 	      <input type="password" class="form-control" id="Password1"  name="Password1"required="required">
 	    </div>
 	    <div class="form-group">
-	      <label for="Password2">Confirm Password <? echo $form_errs->the_('Password2',0,'<span class="error">','</span>')?></label>
+	      <label for="Password2">Confirm Password <? echo $form_errs->the_('Password2','<span class="error">','</span>')?></label>
 	      <input type="password" class="form-control" id="Password2" name="Password2" required="required" >
 	    </div>
 		<button class="submit btn btn-primary  btn-block" name="signup_sub">Sign up</button>

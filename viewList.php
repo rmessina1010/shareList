@@ -1,6 +1,7 @@
 <?
+	ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/functions_forms.php');
 	$accordion = $_SESSION["LISTlogged"]['prefs']['acc'];
  	$autoUpdate = $_SESSION["LISTlogged"]['prefs']['auto'];
@@ -23,16 +24,15 @@
 	if ( $_SESSION["LISTlogged"]['prefs']['view'] == 0){ $OPTs.= ' AND  `Needed` = 1 ';  }
 	$item_sql ='SELECT * FROM `GLItems` WHERE `inGList` = :glid '.$OPTs.' ORDER BY `GLIOrd` ASC';
 	$theList = new RMCDO(false, $item_sql, array(':glid'=>$_GET['glid']));
-
  ?><!DOCTYPE html>
 <html>
 	<head>
 		<title><? echo $listCheck->the_('GLName'); ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="http://rmdesign.byethost32.com/lists/parts/css/main.css">
+		<link type="text/css" rel="stylesheet" href="design/css/main.css">
 		<link type="text/css" rel="stylesheet" href="design/css/shared.css">
-		<link type="text/css" rel="stylesheet" href="http://rmdesign.byethost32.com/lists/parts/css/modal.css">
+		<link type="text/css" rel="stylesheet" href="design/css/modal.css">
 
 		<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="design/css/view_list.css"   type="text/css" media="screen" charset="utf-8">
@@ -59,5 +59,5 @@
 	 				</div>
  				</form>
 	</body>
- 	<script type="text/javascript"  src="http://rmdesign.byethost32.com/sharelist/js/general.js"></script>
+ 	<script type="text/javascript"  src="js/general.js"></script>
  </html>

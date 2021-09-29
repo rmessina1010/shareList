@@ -1,6 +1,6 @@
 <?
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/rm_passwordFoos.php');
 	include_once  ('includes/validation_foos.php');
 	$oops='';//  must come before _process.php

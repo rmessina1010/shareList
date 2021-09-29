@@ -1,6 +1,7 @@
 <?
+ 
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/dash_process.php');
 	include_once  ('includes/functions_forms.php');
 	$listSQL = "SELECT * FROM `GLists` WHERE (`GLOwner` = :ownerid  OR (`GLEditors` LIKE :theemail) OR (`GLSubs` LIKE :theemail)) ORDER BY `GLName` ASC"; //SQL selects lists based on ownerID and ownerEmail
@@ -14,8 +15,7 @@
 		<link rel="stylesheet" href="design/css/dashboard.css" media="screen">
  	</head>
 	<body>
-		
-		<div class="container">
+ 		<div class="container">
 		<? include ('includes/top_nav.php'); ?>
   			<form  id="listCTR" method="POST">
 	  			<div class="section">

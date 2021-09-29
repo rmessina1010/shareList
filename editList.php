@@ -1,6 +1,6 @@
 <?
 	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/functions_forms.php');
 	include_once  ('includes/rm_appended_foos.php');
 	$accordion = $_SESSION["LISTlogged"]['prefs']['acc'];
@@ -77,7 +77,7 @@
  </form>
  	</div>
 </body>
-	<script type="text/javascript"  src="http://rmdesign.byethost32.com/sharelist/js/general.js"></script>
+	<script type="text/javascript"  src="/js/general.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
 

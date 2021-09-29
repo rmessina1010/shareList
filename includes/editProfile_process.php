@@ -87,7 +87,7 @@
 	  		$form_errs = new RMCDO(array($messages));
 	 	}
  	 }else{
- 	    $form_vals = new RMCO(false, 'SELECT `LOName` AS `Firstname`, `LOLastName` AS `Lastname`, `LOEmail` AS `email` FROM `ListOwnersNew` WHERE `LOID` = :id', array(':id'=>$_SESSION["LISTlogged"]['UserID']));
-	  	$form_errs = new RMCO(array());
+ 	    $form_vals = new RMCDO(false, 'SELECT `LOName` AS `Firstname`, `LOLastName` AS `Lastname`, `LOEmail` AS `email` FROM `ListOwnersNew` WHERE `LOID` = :id', array(':id'=>$_SESSION["LISTlogged"]['UserID']));
+	  	$form_errs = new RMCDO(array());
 	 }
 ?>

@@ -1,6 +1,6 @@
 <?
 	session_start(); //continues user session
-	include_once  ('../-RMCMS2_5/processors/RMengine2_5.php');
+	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/functions_forms.php');
 	if (!isset($_SESSION["LISTlogged"]['stoken']) || !isset($_GET['_t']) ||  $_GET['_t'] != $_SESSION["LISTlogged"]['stoken'] ){
  		echo 'Token mismatch error!!!'; 

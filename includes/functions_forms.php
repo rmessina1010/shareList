@@ -75,7 +75,7 @@ return $res;
 		$closeCat ='';
 		$lastCat=false;
 		$acc =(isset($_SESSION['LISTlogged']['prefs']['acc']) && $_SESSION['LISTlogged']['prefs']['acc']);
-		while($thisItem = $theList->getRow()){
+		while($thisItem = $theList->theRow()){
 			if( $lastCat != $thisItem['GLICat']){
 				$res.= $closeCat;
 				$lastCat = $thisItem['GLICat'];
@@ -85,8 +85,9 @@ return $res;
 			$closeCat= <<<EOT
 							</ul>
 						</li>
+						
 EOT;
-			$theList->nextRow();
+			//$theList->nextRow();
 		}
 		$res.= $closeCat;
 		return $res;
@@ -219,7 +220,7 @@ EOT;
 		$closeCat ='';
 		$lastCat=false;
 		$acc =(isset($_SESSION['LISTlogged']['prefs']['acc']) && $_SESSION['LISTlogged']['prefs']['acc']);
-		while($thisItem = $theList->getRow()){
+		while($thisItem =  $theList->theRow()){
 			if( $lastCat != $thisItem['GLICat']){
 				$res.= $closeCat;
 				$lastCat = $thisItem['GLICat'];
@@ -230,7 +231,7 @@ EOT;
 							</ul>
 						</li>
 EOT;
-			$theList->nextRow();
+		//$theList->nextRow();
 		}
 		$res.= $closeCat;
 		return $res;

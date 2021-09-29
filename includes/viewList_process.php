@@ -10,7 +10,8 @@ if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t'])
 			doQ( $Q, false);
 		}
 		if (isset($_POST['QT']) && !$autoUpdate){ 
-			$stmnt =prepSTMT( 'UPDATE `GLItems` SET `QTY`= ? WHERE `GLIID`= ? AND `inGList`= ?');
+			$stmnt =new DB_query( 'UPDATE `GLItems` SET `QTY`= ? WHERE `GLIID`= ? AND `inGList`= ?', DB_hub::connect(DBNAME));
+			$stmnt = $stmnt->STMNT();
 			foreach ($_POST['QT'] as $qtID=>$qqt ){
 				if ( $_POST['OQT'][$qtID] != $qqt && $qqt>0 ){$stmnt->execute (array($qqt,$qtID,$_POST['inList']));}
 			}

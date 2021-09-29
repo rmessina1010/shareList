@@ -18,7 +18,7 @@
 			$SQL= "INSERT INTO `ListOwnersNew` ($sqlCols)  VALUES ($sqlData)";
 			
 			$q=new RMSO(false,$SQL);
-			$q->_doQ($data);
+			$q->_doQ($data) ;
   			//** start session as if logged in;
  			$oops=sharelist_login('email','Password1','<p class="error text-center">Opps, something went wrong.</p>','dash.php');
   		}
