@@ -1,7 +1,7 @@
 <?  
 	
 	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
-	include_once  ('-RMLCMS/processors/RMCMS.php');
+	include_once  ('-RMLCMS/processors/RMLDO.php');
 	include_once  ('includes/rm_passwordFoos.php');
 	include_once  ('includes/login_foos.php');
 	$message='';
