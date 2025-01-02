@@ -25,7 +25,7 @@
 				if (is_array($dbcol)){
 					$dbcol = array_values($dbcol);
 					$arrFlag= (is_array($dbcol[0])  && is_array($dbcol));
-					$subKeys= $arrFlag ? $dbcol[0] :  is_string($dbcol[0]) ? explode(',', $dbcol[0]) : array();
+					$subKeys= $arrFlag ? $dbcol[0] :  (is_string($dbcol[0]) ? explode(',', $dbcol[0]) : array());
 					$valueFlag = isset($dbcol[1])  ? $dbcol[1] : 1;
 					foreach ($subKeys as $subKey=>$subVal){ 
 						if ($arrFlag){ 

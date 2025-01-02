@@ -55,7 +55,7 @@ EOT;
 	                 <label class="mr-2">Image:</label> <input type="text" class="form-control" name="img[]"value="{$item['image']}">
 	            </div>
 	            <div class="col-sm d-flex">
-	                 <label class="mr-2">Notes:</label><textarea class="form-control" height="1" name="comm[]">{$item['notes']}</textarea> 
+	                 <label class="mr-2">Notes:</label><textarea class="form-control" rows="1" name="comm[]">{$item['notes']}</textarea> 
 	            </div>
 	        </div>
         </li>
@@ -74,12 +74,12 @@ return $res;
    		$res='';
 		$closeCat ='';
 		$lastCat=false;
-		$acc =(isset($_SESSION['LISTlogged']['prefs']['acc']) && $_SESSION['LISTlogged']['prefs']['acc']);
+		//$acc =(isset($_SESSION['LISTlogged']['prefs']['acc']) && $_SESSION['LISTlogged']['prefs']['acc']);
 		while($thisItem = $theList->theRow()){
 			if( $lastCat != $thisItem['GLICat']){
 				$res.= $closeCat;
 				$lastCat = $thisItem['GLICat'];
-				$res.=ELF_category_open($thisItem['GLICat'], $acc);
+				$res.=ELF_category_open($thisItem['GLICat'], false);
 			}
 			$res.= ELF_item($thisItem);
 			$closeCat= <<<EOT
@@ -271,7 +271,7 @@ function build_opts($text_str,array $data,$val_str='',$matches=false, $indent=3,
 	$opt_str_close='>'.$text_str.'</option>'."\n";
 	$data_size = count($data);
 	
-	$do_filter = (is_array($filter) &&  count($filter > 1));
+	$do_filter = (is_array($filter) &&  count($filter) > 1);
 	$filter_key= $do_filter ? $filter[0] : false;
 	$filter_val= $do_filter? $filter[1] : false;
 	$filter_eq =  isset($filter[2]) ? $filter[2] : '==';

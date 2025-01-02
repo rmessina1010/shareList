@@ -1,8 +1,8 @@
 <?
 	if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t']){
 		$SQL  = false;
- 		$data[':editors']	= ','.implode(',', $_POST['editors']).',';
- 		$data[':shares']		= ','.implode(',', $_POST['shares']).',';
+ 		$data[':editors']	= is_array($_POST['editors']) ? ','.implode(',', $_POST['editors']).',' : '';
+ 		$data[':shares']	= is_array($_POST['shares']) ?','.implode(',', $_POST['shares']).',' : '';
    		$glistname ='';
   		if ($_POST['listNewName']){
 	  		$glistname 			= ' `GLName` = :listname, ';
@@ -25,6 +25,15 @@
   			$data = array(':id'=>$_POST['manageList']);
 		}
 		if ($SQL){ doQ($SQL, $data); }
+		/// UPDATE PREFS, backup 2021
+		$pref_list = array('acc','view','auto');
+		foreach ($pref_list as $pref){ 
+			if (isset($_POST['prefs'][$pref])){ $_SESSION['LISTlogged']['prefs'][$pref] = 1;}
+			else {unset($_SESSION['LISTlogged']['prefs'][$pref]);}
+		}
+		$activePrefs = is_array($_POST['prefs'][$pref]) ? $_POST['prefs'][$pref] : array();
+ 		doQ('UPDATE `ListOwnersNew` SET  `LOPrefs` = :prefs WHERE `LOID` = :uid', array("prefs"=>implode(',', $activePrefs ), "uid"=>$_SESSION['LISTlogged']['UserID'] ));
+
 		include ('includes/submit_redirs.php');
 	}
 ?>

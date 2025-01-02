@@ -1,5 +1,5 @@
 <?
- 	include('RMLDO.php');
+ 	include(__DIR__.'/RMLDO.php');
  	DB_hub::create();
  	
  	class RMSO{
@@ -42,7 +42,7 @@
 	    }
 		
 		function _doQ($data = null){
-			$data = $data === null ? $this->data :   is_array($data) ? $data : array() ; 
+			$data = $data === null ? $this->data : (is_array($data) ? $data : array()) ; 
 			return $this->OBJ->run($data);
 		}
 		function STMNT(){
@@ -75,7 +75,7 @@
    $prepped=false;
    if (!is_array($q)){ $Q[0]=$q;}
    else {$Q=$q;}														// initialize array of queries, $Q
-   $so= new  DB_query('', DB_hub::connect($cnn, $cname));   												//set up stament object 
+   $so= new  DB_query('', DB_hub::connect($cnn, $cname));   			//set up stament object 
    //$dbh=$so->dbh();													//set up DB handle;
    //if ($trns){$dbh->beginTransaction();}								//intitiale transaction IF requested by user;
    $dataArray= is_array($data);
@@ -87,7 +87,7 @@
  	 				if (!$hasSubArr) { $data=array(key($Q)=>array($data)); }
 	 				elseif (!is_array(reset(reset($hasSubArr)))) { $data=array(key($Q)=>$data);} // double nsested
  	 			} 
-	 			else{$data=array(array(array($data)));}
+	 			else{$data= $data ? array(array(array($data))) : array(array(array()));}
 	 			$prepped= true;		
 			}
 			
@@ -120,7 +120,7 @@
 					catch(PDOException $e){ 
 						$err='could not do : '.$qr.' [ data line: '.implode( ',' ,$vars).']' ;
 						$log[]=array($qr,$ovar,$err,$e->getMessage());
-						echo $e->getMessage();
+						echo $e->getMessage().$err;
 						//if ($trns){$dbh->rollBack(); }
 						return ($ret) ?  $log :$err ;
 					}

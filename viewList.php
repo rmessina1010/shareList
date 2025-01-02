@@ -1,5 +1,4 @@
 <?
-	ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
  	include_once  ('includes/loginCheck.php');   // check for login: if already logged in, reroute to main page
 	include_once  ('-RMLCMS/processors/RMCMS.php');
 	include_once  ('includes/functions_forms.php');

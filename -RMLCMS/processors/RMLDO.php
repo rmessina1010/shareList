@@ -1,5 +1,5 @@
 <?
-  require ('RMLDB.php');
+  require (__DIR__.'/RMLDB.php');
   class RMLDO{
 	protected $_TheData 	= array();
 	protected $_pointer		= 0;
@@ -44,7 +44,7 @@
 				if (is_string($dbh)){ $dbh = explode(',', $dbh);}
 				if(is_array($dbh)){
 					$dbname = array_unshift($dbh) ;
-					$dbconn = $dbh ? array_unshift($dbh) : (isset($args['dbi']) && is_string($args['dbi'])) ? $args['dbi'] : '_default';
+					$dbconn = $dbh ? array_unshift($dbh) : ((isset($args['dbi']) && is_string($args['dbi'])) ? $args['dbi'] : '_default');
 					$dbh = DB_hub::connect($dbname,$dbconn);
 				}else{
 					$dbh = false;
@@ -90,7 +90,7 @@
 			return; 
 		}
 		$this->_table = array_shift(array_filter($matches[1]));
-	    $this->_pKey= method_exists('pKey', 'getK')  ? pKey::getK($this->_table) : (is_string($fallback_key)) ? $fallback_key : false ;
+	    $this->_pKey= method_exists('pKey', 'getK')  ? pKey::getK($this->_table) : ((is_string($fallback_key)) ? $fallback_key : false) ;
 	}
 	
 	protected function set_theData($data =array()){
@@ -107,14 +107,14 @@
 	}
 	
 	protected function setColumns(){ 
-		$this->_columns = $this->_TheData ? array_keys($this->_TheData[0]) : array();
+		$this->_columns = (isset($this->_TheData[0]) && is_array($this->_TheData[0])) ? array_keys($this->_TheData[0]) : array();
 	}
 	
 	protected function run_filters($value, $filt =array(),$filtArgs =array()){
 		foreach ($filt as  $filtName){
 			$filter = 'rm_filt_'.$filtName;
 			if (function_exists($filter)){
-				$filt_args 	= (isset($filtArgs[$filtName]) && is_array($filtArgs[$filtName])) ?  												  array_merge($value, $filtArgs[$filtName])  : array($value);
+				$filt_args 	= (isset($filtArgs[$filtName]) && is_array($filtArgs[$filtName])) ? array_merge($value, $filtArgs[$filtName])  : array($value);
 				$value 		= call_user_func_array($filter,$filt_args);
 				}
 		}

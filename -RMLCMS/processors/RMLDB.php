@@ -1,7 +1,6 @@
 <?
 	
-require ('settings.php');
-
+require (__DIR__.'/settings.php');
 class  DB_hub{
 	   protected static $dbs 	= array();
 	   
@@ -115,7 +114,7 @@ class DB_query{
 	
 	function __construct($query,$dbh, array $attributes = array()){
  	  $this->dbh =  $dbh;
- 	  $this->prep($query,$attributes);
+ 	  if (is_string($query) && trim($query)) { $this->prep($query,$attributes);}
 	  return $this;
 	}
 	
