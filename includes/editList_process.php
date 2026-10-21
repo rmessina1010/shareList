@@ -1,14 +1,15 @@
 <?
 
-	if (isset($_POST['subbed']) && isset($_POST['serializedData'])){ 
-		$is_subbed_val =  $_POST['subbed'];
-		parse_str($_POST['serializedData'], $unpackedData);
-		$_POST = $unpackedData;
-		$_POST['subbed'] =$is_subbed_val;
-	}
+	if (isset($_POST['subbed'])){
+		if (isset($_POST['serializedData'])){ 
+			$is_subbed_val =  $_POST['subbed'];
+			parse_str($_POST['serializedData'], $unpackedData);
+			$_POST = $unpackedData;
+			$_POST['subbed'] =$is_subbed_val;
+		}
+		if ($_SESSION['LISTlogged']['stoken'] == $_POST['t']){// process form
 
-	if (isset($_POST['subbed']) && $_SESSION['LISTlogged']['stoken'] == $_POST['t']){// process form
-	   if ($_POST['subbed'] === $updateBttnVal){
+	    if ($_POST['subbed'] === $updateBttnVal){
 			 $Q=false;
 			 $listTitle =trim(strip_tags($_POST['listTitle']));
 			 if ($listName !== $listTitle && $listTitle !== '' ){
@@ -48,4 +49,5 @@
 		}
 		include ('includes/submit_redirs.php');
 	}
+}
 ?>
