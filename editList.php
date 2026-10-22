@@ -81,11 +81,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		//init elements
 		var mainList = document.getElementById('masterCat').parentNode;
   		prepMaster('masterLI');
 		prepMaster('masterCat');
+		var editForm = document.getElementById('editForm');
+		
+ 
+		editForm.addEventListener('submit', function(event) {
+ 			var form = event.target;
+ 			if (form.elements.length > 1005){ 
+				var formData =  new FormData(form);
+				var serializedData = new URLSearchParams(formData).toString();
+				formData.set('serializedData', serializedData);
+				form.submit();
+			    var hiddenInput = document.createElement('input');
+			    hiddenInput.type = 'hidden';
+			    hiddenInput.name = 'serializedData';
+			    hiddenInput.value = serializedData;
+			    form.appendChild(hiddenInput);
+				    var namedFields = form.querySelectorAll('[name]');
+			    var requiredFields =  new Set(['t','listTitle', 'toDelete','inList','<?echo $updateBttnVal;?>','serializedData'])
+			    
+			    namedFields.forEach(function(field) {
+			         if (requiredFields.has(field.name)) { return; }
+					 field.disabled = true;
+			    });
+ 			}
+		});
  </script>
 
 </html>
